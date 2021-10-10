@@ -1,35 +1,49 @@
-#include <iostream> 
+#include "opencv2/opencv.hpp"
+#include <iostream>
+
+using namespace cv;
 using namespace std;
 
-int cnt = 0; // 이동 횟수에 이용.
+void ROI();
 
-void Hanoi(int n, char from, char temp, char to)
-// n : 원반개수, from : 원래 위치, temp : 임시 장소, to :목적지
-{
+int main() {
+	ROI();
 
-	// 프로그램을 완성하세요
-	if (n == 1) {	//원반을 1개만 옮기는 경우,
-		printf("원반 %d를 기둥 %c에서 기둥 %c으로 옮긴다.\n", n, from, to);	//from에서 to로 옮긴다.
-		return;
-	}
-	else {
-		Hanoi(n - 1, from, to, temp);	//(n-1)개 원반을 from에서 temp로 옮긴다.
-		printf("원반 %d를 기둥 %c에서 기둥 %c으로 옮긴다.\n", n, from, to); //가장 큰 원반을 from에서 to로 옮긴다.
-		Hanoi(n - 1, temp, from, to);	//(n-1)개 원반을 temp에서 to로 옮긴다.
-
-	}
-
+	return 0;
 }
 
+void ROI() {
+	Mat img1 = imread("lenna.bmp");
+	Mat img1_before;
+	Mat img_roi_1, img_roi_2, img_roi_3, img_roi_4, img_roi_5, img_roi_6, img_roi_7, img_roi_8;
 
-void main()
-{
-	int n; //원반의 수
+	resize(img1, img1_before, Size(256, 256));
+	Mat img1_after = img1_before.clone();
 
-	cout << "원반의 갯수를 입력하세요 : ";
-	cin >> n;
+	img_roi_1 = img1_after(Rect(0, 0, 256, 25));
+	img_roi_2 = img1_after(Rect(0, 25, 25, 206));
+	img_roi_3 = img1_after(Rect(0, 231, 256, 25));
+	img_roi_4 = img1_after(Rect(231, 25, 25, 206));
+	img_roi_5 = img1_after(Rect(50, 50, 156, 25));
+	img_roi_6 = img1_after(Rect(50, 75, 25, 106));
+	img_roi_7 = img1_after(Rect(50, 181, 156, 25));
+	img_roi_8 = img1_after(Rect(181, 75, 25, 106));
 
-	Hanoi(n, 'A', 'B', 'C');    // n개의 원반을 'A'에서 'C'로 이동
-	cnt = pow(2, n) - 1;	//원반이 이동한 횟수
-	cout << "전체 원반 이동 수(원반수 : " << n << ") = " << cnt << endl;
+	img_roi_1.setTo(Scalar(0, 255, 0));
+	img_roi_2.setTo(Scalar(0, 255, 0));
+	img_roi_3.setTo(Scalar(0, 255, 0));
+	img_roi_4.setTo(Scalar(0, 255, 0));
+	img_roi_5.setTo(Scalar(255, 0, 0));
+	img_roi_6.setTo(Scalar(255, 0, 0));
+	img_roi_7.setTo(Scalar(255, 0, 0));
+	img_roi_8.setTo(Scalar(255, 0, 0));
+	
+
+	imshow("img1_before", img1_before);
+	imshow("img1_after", img1_after);
+	//imshow("img_roi_1", img_roi_1);
+	//imshow("img_roi_2", img_roi_2);
+	//imshow("img_roi_3", img_roi_3);
+	//imshow("img_roi_4", img_roi_4);
+	waitKey();
 }

@@ -18,6 +18,11 @@ int main() {
 	namedWindow("image");
 	imshow("image", img);
 
-	waitKey(0);
+	namedWindow("image2", WINDOW_NORMAL);
+	moveWindow("image2", 100, 100);
+	imshow("image2", img);
+
+	waitKey();
+
 	return 0;
 }
